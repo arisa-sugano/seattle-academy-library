@@ -56,8 +56,6 @@ public class BooksService {
         return bookDetailsInfo;
     }
 
-
-
     /**
      * 書籍を登録する
      *
@@ -78,7 +76,6 @@ public class BooksService {
         jdbcTemplate.update(sql);
     }
 
-
     public int getNewestId() {
         String sql = "select max(ID) from books;";
         int newestId = jdbcTemplate.queryForObject(sql, Integer.class);
@@ -88,7 +85,6 @@ public class BooksService {
     public void deletingSystem(int bookId) {
         String sql = "DELETE FROM books where id =" + bookId + ";";
         jdbcTemplate.update(sql);
-
 
     }
 }

@@ -1,5 +1,8 @@
 package jp.co.seattle.library.controller;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 import org.slf4j.Logger;
@@ -69,9 +72,24 @@ public class AddBooksController {
         bookInfo.setDescription(description);
         bookInfo.setISBN(ISBN);
 
-        //boolean isIsbnFoeCheck = ISBN.matches("^\\d{10,13}$");
-        //boolean isPublish_DateCheck = publish_Date.matches();
+        boolean isIsbnForCheck = ISBN.matches("(^\\d{10,13}$)?");
 
+        if (!isIsbnForCheck) {
+            model.addAttribute("error", "10字または13字以内の数字を入力してください");
+            return "addBook";
+        }
+
+        //}
+        try {
+            DateFormat df = new SimpleDateFormat("yyyyMMdd");
+            df.setLenient(false);
+            df.parse(publish_Date);
+
+        } catch (ParseException p) {
+            model.addAttribute("error1", "年月日を入力してください");
+            return "addBook";
+
+        }
         // クライアントのファイルシステムにある元のファイル名を設定する
         String thumbnail = file.getOriginalFilename();
 
@@ -103,13 +121,10 @@ public class AddBooksController {
         //  詳細画面に遷移する
         //serviceから一番古いIDの情報を持ってくる
 
-
         int newId = booksService.getNewestId();
         BookDetailsInfo newIdInfo = booksService.getBookInfo(newId);
         model.addAttribute("bookDetailsInfo", newIdInfo);
 
         return "details";
     }
-    }
-
-
+}

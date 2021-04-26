@@ -22,9 +22,6 @@ public class BookInfo {
     private String publish_Date;
 
     private String thumbnail;
-    
-
-    
 
     public BookInfo() {
 
@@ -38,7 +35,6 @@ public class BookInfo {
         this.publisher = publisher;
         this.publish_Date = publishDate;
         this.thumbnail = thumbnail;
-        
 
     }
 

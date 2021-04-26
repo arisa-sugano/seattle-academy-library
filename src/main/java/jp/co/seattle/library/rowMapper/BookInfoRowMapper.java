@@ -22,9 +22,9 @@ public class BookInfoRowMapper implements RowMapper<BookInfo> {
         bookInfo.setTitle(rs.getString("title"));
         bookInfo.setAuthor(rs.getString("author"));
         bookInfo.setPublisher(rs.getString("publisher"));
-        bookInfo.setPublishDate(rs.getString("publish_date"));
+        bookInfo.setPublish_Date(rs.getString("publish_date"));
         bookInfo.setThumbnail(rs.getString("thumbnail_url"));
-        //左はブックインフォに揃える右はブックサービスのSELECTに揃える
+        //左はブックインフォに揃える右はブックサービスのSELECTに揃える。
         return bookInfo;
     }
 
