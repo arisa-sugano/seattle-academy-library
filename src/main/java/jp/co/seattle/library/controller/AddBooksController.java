@@ -52,7 +52,11 @@ public class AddBooksController {
             @RequestParam("title") String title,
             @RequestParam("author") String author,
             @RequestParam("publisher") String publisher,
+            @RequestParam("publishe_Date") String publish_Date,
             @RequestParam("thumbnail") MultipartFile file,
+            @RequestParam("ISBN") String ISBN,
+            @RequestParam("description") String description,
+
             Model model) {
         logger.info("Welcome insertBooks.java! The client locale is {}.", locale);
 
@@ -61,6 +65,12 @@ public class AddBooksController {
         bookInfo.setTitle(title);
         bookInfo.setAuthor(author);
         bookInfo.setPublisher(publisher);
+        bookInfo.setPublish_Date(publish_Date);
+        bookInfo.setDescription(description);
+        bookInfo.setISBN(ISBN);
+
+        //boolean isIsbnFoeCheck = ISBN.matches("^\\d{10,13}$");
+        //boolean isPublish_DateCheck = publish_Date.matches();
 
         // クライアントのファイルシステムにある元のファイル名を設定する
         String thumbnail = file.getOriginalFilename();
@@ -91,7 +101,15 @@ public class AddBooksController {
 
         // TODO 登録した書籍の詳細情報を表示するように実装
         //  詳細画面に遷移する
+        //serviceから一番古いIDの情報を持ってくる
+
+
+        int newId = booksService.getNewestId();
+        BookDetailsInfo newIdInfo = booksService.getBookInfo(newId);
+        model.addAttribute("bookDetailsInfo", newIdInfo);
+
         return "details";
     }
+    }
 
-}
+

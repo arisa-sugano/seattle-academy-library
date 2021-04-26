@@ -65,13 +65,22 @@ public class BooksService {
      */
     public void registBook(BookDetailsInfo bookInfo) {
 
-        String sql = "INSERT INTO books (title, author,publisher,thumbnail_name,thumbnail_url,reg_date,upd_date) VALUES ('"
+        String sql = "INSERT INTO books (title, author,publisher,publish_Date,thumbnail_name,thumbnail_url,reg_date,upd_date,description,ISBN) VALUES ('"
                 + bookInfo.getTitle() + "','" + bookInfo.getAuthor() + "','" + bookInfo.getPublisher() + "','"
+                + bookInfo.getPublish_Date() + "','"
                 + bookInfo.getThumbnailName() + "','"
                 + bookInfo.getThumbnailUrl() + "',"
                 + "sysdate(),"
-                + "sysdate())";
+                + "sysdate()," + "'"
+                + bookInfo.getDescription() + "','"
+                + bookInfo.getISBN() + "');";
 
         jdbcTemplate.update(sql);
+    }
+
+    public int getNewestId() {
+        String sql = "select max(ID) from books;";
+        int newestId = jdbcTemplate.queryForObject(sql, Integer.class);
+        return newestId;
     }
 }
