@@ -33,7 +33,7 @@ public class BooksService {
 
         // TODO 取得したい情報を取得するようにSQLを修正
         List<BookInfo> getedBookList = jdbcTemplate.query(
-                "select * from books",
+                "SELECT id ,title ,author ,publisher ,publish_date, thumbnail_url FROM books ORDER BY title ASC",
                 new BookInfoRowMapper());
 
         return getedBookList;
@@ -78,9 +78,17 @@ public class BooksService {
         jdbcTemplate.update(sql);
     }
 
+
     public int getNewestId() {
         String sql = "select max(ID) from books;";
         int newestId = jdbcTemplate.queryForObject(sql, Integer.class);
         return newestId;
+    }
+
+    public void deletingSystem(int bookId) {
+        String sql = "DELETE FROM books where id =" + bookId + ";";
+        jdbcTemplate.update(sql);
+
+
     }
 }

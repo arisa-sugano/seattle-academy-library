@@ -58,7 +58,27 @@ public class AccountController {
 
 
         // TODO バリデーションチェック、パスワード一致チェック実装
+        //パリデーションチェック半角英数字であるかチェック
+        boolean isEmailiVaild = email
+                .matches("^([a-zA-Z0-9])+([a-zA-Z0-9\\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\\._-]+)+$");
+        boolean isValidPW = password.matches("^[A-Za-z0-9]+$");
+        boolean isValidPWOForCheck = passwordForCheck.matches("[A-Za-z0-9]+$");
+        //boolean:true またはfolseしかでないことを表すコマンド
+        
+        if (!isEmailiVaild || !isValidPW || !isValidPWOForCheck) {
+            //移動して欲しい画面のJSP名
+            model.addAttribute("error", "一文字以上の半角英数字を使用してください");
+            //HTMLに反映させるコマンド　（第一引数（CSSで使える変数、第二引数が実際に表示される文字）
 
+            return "createAccount";
+        }
+            
+        if (!password.equals(passwordForCheck)) {
+            model.addAttribute("error", "パスワードが一致しません");
+            return "createAccount";
+                }
+
+           
         userInfo.setPassword(password);
         usersService.registUser(userInfo);
 
@@ -66,4 +86,7 @@ public class AccountController {
         return "home";
     }
 
+
+
 }
+

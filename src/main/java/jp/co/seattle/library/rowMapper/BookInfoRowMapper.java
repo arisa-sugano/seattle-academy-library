@@ -13,13 +13,18 @@ public class BookInfoRowMapper implements RowMapper<BookInfo> {
 
     @Override
     public BookInfo mapRow(ResultSet rs, int rowNum) throws SQLException {
+        //SQLを実行して結果がResulySet rsのコマンド
         // Query結果（ResultSet rs）を、オブジェクトに格納する実装
         BookInfo bookInfo = new BookInfo();
 
         // bookInfoの項目と、取得した結果(rs)のカラムをマッピングする
         bookInfo.setBookId(rs.getInt("id"));
         bookInfo.setTitle(rs.getString("title"));
+        bookInfo.setAuthor(rs.getString("author"));
+        bookInfo.setPublisher(rs.getString("publisher"));
+        bookInfo.setPublishDate(rs.getString("publish_date"));
         bookInfo.setThumbnail(rs.getString("thumbnail_url"));
+        //左はブックインフォに揃える右はブックサービスのSELECTに揃える
         return bookInfo;
     }
 
