@@ -75,12 +75,15 @@ public class AddBooksController {
 
         boolean isIsbnForCheck = ISBN.matches("(^\\d{10,13}$)?");
 
+        boolean check = false;
+
         if (!isIsbnForCheck) {
             model.addAttribute("error", "10字または13字以内の数字を入力してください");
-            return "addBook";
+            check = true;
+
         }
 
-        //}
+
         try {
             DateFormat df = new SimpleDateFormat("yyyyMMdd");
             df.setLenient(false);
@@ -88,9 +91,14 @@ public class AddBooksController {
 
         } catch (ParseException p) {
             model.addAttribute("error1", "年月日を入力してください");
-            return "addBook";
+            check = true;
 
         }
+
+        if (check) {
+            return "addBook";
+        }
+
         // クライアントのファイルシステムにある元のファイル名を設定する
         String thumbnail = file.getOriginalFilename();
 
