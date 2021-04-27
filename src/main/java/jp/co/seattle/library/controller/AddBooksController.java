@@ -1,5 +1,8 @@
 package jp.co.seattle.library.controller;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 import org.slf4j.Logger;
@@ -52,7 +55,11 @@ public class AddBooksController {
             @RequestParam("title") String title,
             @RequestParam("author") String author,
             @RequestParam("publisher") String publisher,
+            @RequestParam("publishe_Date") String publishDate,
             @RequestParam("thumbnail") MultipartFile file,
+            @RequestParam("ISBN") String ISBN,
+            @RequestParam("description") String description,
+
             Model model) {
         logger.info("Welcome insertBooks.java! The client locale is {}.", locale);
 
@@ -61,6 +68,36 @@ public class AddBooksController {
         bookInfo.setTitle(title);
         bookInfo.setAuthor(author);
         bookInfo.setPublisher(publisher);
+        bookInfo.setPublishDate(publishDate);
+        bookInfo.setDescription(description);
+        bookInfo.setISBN(ISBN);
+
+
+        boolean isIsbnForCheck = ISBN.matches("(^\\d{10,13}$)?");
+
+        boolean check = false;
+
+        if (!isIsbnForCheck) {
+            model.addAttribute("error", "10字または13字以内の数字を入力してください");
+            check = true;
+
+        }
+
+
+        try {
+            DateFormat df = new SimpleDateFormat("yyyyMMdd");
+            df.setLenient(false);
+            df.parse(publishDate);
+
+        } catch (ParseException p) {
+            model.addAttribute("error1", "年月日を入力してください");
+            check = true;
+
+        }
+
+        if (check) {
+            return "addBook";
+        }
 
         // クライアントのファイルシステムにある元のファイル名を設定する
         String thumbnail = file.getOriginalFilename();
@@ -91,7 +128,12 @@ public class AddBooksController {
 
         // TODO 登録した書籍の詳細情報を表示するように実装
         //  詳細画面に遷移する
+        //serviceから一番古いIDの情報を持ってくる
+
+        int newId = booksService.getNewestId();
+        BookDetailsInfo newIdInfo = booksService.getBookInfo(newId);
+        model.addAttribute("bookDetailsInfo", newIdInfo);
+
         return "details";
     }
-
 }
