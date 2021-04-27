@@ -55,7 +55,7 @@ public class AddBooksController {
             @RequestParam("title") String title,
             @RequestParam("author") String author,
             @RequestParam("publisher") String publisher,
-            @RequestParam("publishe_Date") String publish_Date,
+            @RequestParam("publishe_Date") String publishDate,
             @RequestParam("thumbnail") MultipartFile file,
             @RequestParam("ISBN") String ISBN,
             @RequestParam("description") String description,
@@ -68,9 +68,10 @@ public class AddBooksController {
         bookInfo.setTitle(title);
         bookInfo.setAuthor(author);
         bookInfo.setPublisher(publisher);
-        bookInfo.setPublish_Date(publish_Date);
+        bookInfo.setPublishDate(publishDate);
         bookInfo.setDescription(description);
         bookInfo.setISBN(ISBN);
+
 
         boolean isIsbnForCheck = ISBN.matches("(^\\d{10,13}$)?");
 
@@ -83,7 +84,7 @@ public class AddBooksController {
         try {
             DateFormat df = new SimpleDateFormat("yyyyMMdd");
             df.setLenient(false);
-            df.parse(publish_Date);
+            df.parse(publishDate);
 
         } catch (ParseException p) {
             model.addAttribute("error1", "年月日を入力してください");
