@@ -24,8 +24,8 @@
         </div>
         <div class="right">
             <ul>
-                <li><a href="<%= request.getContextPath()%>/home" class="menu">Home</a></li>
-                <li><a href="<%= request.getContextPath()%>/">ログアウト</a></li>
+                <li><a href="<%=request.getContextPath()%>/home" class="menu">Home</a></li>
+                <li><a href="<%=request.getContextPath()%>/">ログアウト</a></li>
             </ul>
         </div>
     </header>
@@ -56,8 +56,21 @@
                     <span>出版社</span>
                     <p>${bookDetailsInfo.publisher}</p>
                 </div>
-            </div>
-        </div>
+                <div>
+                    <span>出版日</span>
+                    <p>${bookDetailsInfo.publishDate}</p>
+                </div>
+                <div>
+                    <span>ISBN</span>
+                    <p>${bookDetailsInfo.ISBN}</p>
+                </div>
+                <div>
+                    <span>説明文</span>
+                    <p>${bookDetailsInfo.description}</p>
+                </div>
+           </div>
+         </div>
+            
         <div class="edtDelBookBtn_box">
             <form method="post" action="rentBook">
                 <button type="submit" value="${bookDetailsInfo.bookId}" name="bookId" class="btn_rentBook">借りる</button>
