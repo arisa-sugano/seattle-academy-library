@@ -19,7 +19,7 @@ public class BookInfo {
 
     private String publisher;
 
-    private String publish_Date;
+    private String publishDate;
 
     private String thumbnail;
 
@@ -33,7 +33,7 @@ public class BookInfo {
         this.title = title;
         this.author = author;
         this.publisher = publisher;
-        this.publish_Date = publishDate;
+        this.publishDate = publishDate;
         this.thumbnail = thumbnail;
 
     }

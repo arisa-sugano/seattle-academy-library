@@ -58,7 +58,7 @@
                 </div>
                 <div>
                     <span>出版日</span>
-                    <p>${bookDetailsInfo.publish_Date}</p>
+                    <p>${bookDetailsInfo.publishDate}</p>
                 </div>
                 <div>
                     <span>ISBN</span>
