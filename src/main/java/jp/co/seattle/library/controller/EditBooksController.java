@@ -24,8 +24,8 @@ import jp.co.seattle.library.service.ThumbnailService;
  * Handles requests for the application home page.
  */
 @Controller //APIの入り口
-public class AddBooksController {
-    final static Logger logger = LoggerFactory.getLogger(AddBooksController.class);
+public class EditBooksController {
+    final static Logger logger = LoggerFactory.getLogger(EditBooksController.class);
 
     @Autowired
     private BooksService booksService;
@@ -33,25 +33,24 @@ public class AddBooksController {
     @Autowired
     private ThumbnailService thumbnailService;
 
-    @RequestMapping(value = "/addBook", method = RequestMethod.GET) //value＝actionで指定したパラメータ
+    //deatils.jsbの編集ボタンを押すとここに飛ぶ
+    //POST：更新 GET:情報の取得
+    @RequestMapping(value = "/editBook", method = RequestMethod.POST) //value＝actionで指定したパラメータ
     //RequestParamでname属性を取得
-    public String login(Model model) {
-        return "addBook";
+    public String login(Locale locale, @RequestParam("bookId") Integer bookId, Model model) {
+
+        BookDetailsInfo newIdInfo = booksService.getBookInfo(bookId);
+        model.addAttribute("bookDetailsInfo", newIdInfo);
+
+        return "editBook";
     }
 
-    /**
-     * 書籍情報を登録する
-     * @param locale ロケール情報
-     * @param title 書籍名
-     * @param author 著者名
-     * @param publisher 出版社
-     * @param file サムネイルファイル
-     * @param model モデル
-     * @return 遷移先画面
-     */
+    //詳細画面⇨編集ボタン⇨詳細情報ががいている編集画面⇨更新⇨更新された情報を出力
     @Transactional
-    @RequestMapping(value = "/insertBook", method = RequestMethod.POST, produces = "text/plain;charset=utf-8")
-    public String insertBook(Locale locale,
+    //編集画面の更新ボタンの話
+    @RequestMapping(value = "/updateBook", method = RequestMethod.POST, produces = "text/plain;charset=utf-8")
+    public String updateBook(Locale locale,
+            //BookIDは？
             @RequestParam("title") String title,
             @RequestParam("author") String author,
             @RequestParam("publisher") String publisher,
@@ -59,6 +58,7 @@ public class AddBooksController {
             @RequestParam("thumbnail") MultipartFile file,
             @RequestParam("ISBN") String ISBN,
             @RequestParam("description") String description,
+            @RequestParam("bookId") Integer bookId,
 
             Model model) {
         logger.info("Welcome insertBooks.java! The client locale is {}.", locale);
@@ -71,7 +71,7 @@ public class AddBooksController {
         bookInfo.setPublishDate(publishDate);
         bookInfo.setDescription(description);
         bookInfo.setISBN(ISBN);
-
+        bookInfo.setBookId(bookId);
 
         boolean isIsbnForCheck = ISBN.matches("(^\\d{10,13}$)?");
 
@@ -82,7 +82,6 @@ public class AddBooksController {
             check = true;
 
         }
-
 
         try {
             DateFormat df = new SimpleDateFormat("yyyyMMdd");
@@ -96,7 +95,7 @@ public class AddBooksController {
         }
 
         if (check) {
-            return "addBook";
+            return "editBook";
         }
 
         // クライアントのファイルシステムにある元のファイル名を設定する
@@ -117,25 +116,24 @@ public class AddBooksController {
                 // 異常終了時の処理
                 logger.error("サムネイルアップロードでエラー発生", e);
                 model.addAttribute("bookDetailsInfo", bookInfo);
-                return "addBook";
+                return "editBook";
             }
         }
 
-        // 書籍情報を新規登録する
-        booksService.registBook(bookInfo);
+        // 書籍情報を更新する
+        if (!file.isEmpty()) {
+            booksService.updateBook(bookInfo);
+        }
 
-        model.addAttribute("resultMessage", "登録完了");
+        if (file.isEmpty()) {
+            booksService.nullThumbnail(bookInfo);
+        }
 
-        // TODO 登録した書籍の詳細情報を表示するように実装
-        //  詳細画面に遷移する
+        model.addAttribute("resultMessage", "編集完了");
 
-        //serviceから一番古いIDの情報を持ってくる
-        int newId = booksService.getNewestId();
-        // TODO 登録した書籍の詳細情報を表示するように実装
-        BookDetailsInfo newIdInfo = booksService.getBookInfo(newId);
+        BookDetailsInfo newIdInfo = booksService.getBookInfo(bookId);
         model.addAttribute("bookDetailsInfo", newIdInfo);
-        //第２引数の情報を第一引数に入れる
-
         return "details";
+
     }
 }
