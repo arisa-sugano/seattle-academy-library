@@ -18,6 +18,10 @@ import jp.co.seattle.library.rowMapper.BookInfoRowMapper;
  * 
  *  booksテーブルに関する処理を実装する
  */
+/**
+ * @author user
+ *
+ */
 @Service
 public class BooksService {
     final static Logger logger = LoggerFactory.getLogger(BooksService.class);
@@ -86,5 +90,46 @@ public class BooksService {
         String sql = "DELETE FROM books where id =" + bookId + ";";
         jdbcTemplate.update(sql);
 
+    }
+
+
+    /**
+     * 書籍情報を編集する
+     * @param bookInfo　書籍情報
+     */
+
+    public void updateBook(BookDetailsInfo bookInfo) {
+
+        String sql = "update books set title='" + bookInfo.getTitle()
+                + "', author='" + bookInfo.getAuthor()
+                + "',publisher='" + bookInfo.getPublisher()
+                + "',publish_Date='" + bookInfo.getPublishDate()
+                + "',thumbnail_name='" + bookInfo.getThumbnailName()
+                + "',thumbnail_Url='" + bookInfo.getThumbnailUrl()
+                + "',upd_date=sysdate()"
+                + ",description='" + bookInfo.getDescription()
+                + "',ISBN='" + bookInfo.getISBN()
+                + "'where ID =" + bookInfo.getBookId() + ";";
+
+        jdbcTemplate.update(sql);
+    }
+
+    //もしサムネの変更がなかったとき
+    /**
+     * サムネイルの変更がなかったときに元のデータを更新する
+     * @param bookInfo　書籍情報
+     */
+    public void nullThumbnail(BookDetailsInfo bookInfo) {
+
+        String sql = "update books set title='" + bookInfo.getTitle()
+                + "', author='" + bookInfo.getAuthor()
+                + "',publisher='" + bookInfo.getPublisher()
+                + "',publish_Date='" + bookInfo.getPublishDate()
+                + "',upd_date=sysdate()"
+                + ",description='" + bookInfo.getDescription()
+                + "',ISBN='" + bookInfo.getISBN()
+                + "'where ID =" + bookInfo.getBookId() + ";";
+
+        jdbcTemplate.update(sql);
     }
 }
