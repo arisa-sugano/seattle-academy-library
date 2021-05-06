@@ -23,6 +23,7 @@ import jp.co.seattle.library.service.ThumbnailService;
 /**
  * Handles requests for the application home page.
  */
+
 @Controller //APIの入り口
 public class EditBooksController {
     final static Logger logger = LoggerFactory.getLogger(EditBooksController.class);
@@ -35,6 +36,14 @@ public class EditBooksController {
 
     //deatils.jsbの編集ボタンを押すとここに飛ぶ
     //POST：更新 GET:情報の取得
+
+    /**
+     * 書籍情報を編集する
+     * @param locale　ロケール情報
+     * @param bookId　書籍ID
+     * @param model　　モデル
+     * @return　　繊維先画面
+     */
     @RequestMapping(value = "/editBook", method = RequestMethod.POST) //value＝actionで指定したパラメータ
     //RequestParamでname属性を取得
     public String login(Locale locale, @RequestParam("bookId") Integer bookId, Model model) {
@@ -128,8 +137,6 @@ public class EditBooksController {
         if (file.isEmpty()) {
             booksService.nullThumbnail(bookInfo);
         }
-
-        model.addAttribute("resultMessage", "編集完了");
 
         BookDetailsInfo newIdInfo = booksService.getBookInfo(bookId);
         model.addAttribute("bookDetailsInfo", newIdInfo);

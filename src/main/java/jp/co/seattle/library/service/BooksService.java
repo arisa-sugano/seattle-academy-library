@@ -88,6 +88,9 @@ public class BooksService {
 
     }
 
+    /**
+     * @param bookInfo
+     */
     public void updateBook(BookDetailsInfo bookInfo) {
 
         String sql = "update books set title='" + bookInfo.getTitle()
@@ -105,6 +108,9 @@ public class BooksService {
     }
 
     //もしサムネの変更がなかったとき
+    /**
+     * @param bookInfo
+     */
     public void nullThumbnail(BookDetailsInfo bookInfo) {
 
         String sql = "update books set title='" + bookInfo.getTitle()
