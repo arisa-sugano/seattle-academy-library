@@ -77,7 +77,7 @@ public class BulkRegistController {
 
             //エラーがある行を格納するリスト
             ArrayList<String> errorMsg = new ArrayList<String>();
-            int n = 1;
+            int errorcheck = 1;
 
             String line;
             //nullになるまで１行ごと（leadline）確認
@@ -133,14 +133,14 @@ public class BulkRegistController {
 
                 if (check) {
 
-                    errorMsg.add(n + "行目の書籍情報登録でバリデーションエラー");
+                    errorMsg.add(errorcheck + "行目の書籍情報登録でバリデーションエラー");
 
 
                 }
 
                 bookList.add(bookInfo);
 
-                n++;
+                errorcheck++;
             }
 
             if (!CollectionUtils.isEmpty(errorMsg)) {
