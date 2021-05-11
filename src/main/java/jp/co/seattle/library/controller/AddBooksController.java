@@ -73,7 +73,7 @@ public class AddBooksController {
         bookInfo.setISBN(ISBN);
 
 
-        boolean isIsbnForCheck = ISBN.matches("(^\\d{10,13}$)?");
+        boolean isIsbnForCheck = ISBN.matches("(^\\d{10}|\\d{13}$)?");
 
         boolean check = false;
 
