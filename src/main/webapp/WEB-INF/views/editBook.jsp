@@ -51,7 +51,8 @@
                 <div>
                     <span>書籍の画像</span> <span class="care care1">任意</span>
                     <div class="book_thumnail">
-                    <a href="${bookDetailsInfo.thumbnailUrl}" data-lightbox="image-1"> <c:if test="${'null'== bookDetailsInfo.thumbnailUrl}">
+                    <a href="${bookDetailsInfo.thumbnailUrl}" data-lightbox="image-1"> 
+                    <c:if test="${'null'== bookDetailsInfo.thumbnailUrl}">
                             <img class="book_noimg" src="resources/img/noImg.png">
                         </c:if> <c:if test="${'null'!= bookDetailsInfo.thumbnailUrl}">
                             <img class="book_noimg" src="${bookDetailsInfo.thumbnailUrl}">

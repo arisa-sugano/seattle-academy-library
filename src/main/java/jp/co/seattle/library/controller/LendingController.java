@@ -29,14 +29,6 @@ public class LendingController {
     @Autowired
     private LendingService lendingService;
 
-    /**
-     * 対象書籍を貸出中にする
-     *
-     * @param locale ロケール情報
-     * @param bookId 書籍ID
-     * @param model モデル情報
-     * @return "details";
-     */
 
     /**
      * 書籍を借りる
