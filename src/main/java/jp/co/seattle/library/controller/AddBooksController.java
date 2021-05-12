@@ -141,9 +141,8 @@ public class AddBooksController {
         //第２引数の情報を第一引数に入れる
 
         //貸出ステータス表示
-        if (lendingService.lendCheck(newId) == 0) {
             model.addAttribute("lending", "貸出可");
-        }
+
 
         return "details";
     }
