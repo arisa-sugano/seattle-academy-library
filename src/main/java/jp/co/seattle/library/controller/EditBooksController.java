@@ -146,7 +146,7 @@ public class EditBooksController {
         model.addAttribute("bookDetailsInfo", newIdInfo);
 
         //貸出ステータス引き継ぎ
-        if (lendingService.lendCheck(bookId) == 1) {
+        if (lendingService.lendCheck(bookId) != 0) {
             model.addAttribute("lending", "貸出中");
         }
 
