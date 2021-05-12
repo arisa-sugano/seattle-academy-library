@@ -19,4 +19,26 @@ public class LendingService {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    //テーブルに書籍があるか確認
+    public int lendCheck(int bookId) {
+        String sql = "select count(*) from lending where bookId=" + bookId + ";";
+        int lendCheck = jdbcTemplate.queryForObject(sql, Integer.class);
+        return lendCheck;
+
+    }
+
+    //書籍を貸出中デーブルに追加
+    public void rentSystem(int bookId) {
+        String sql = "INSERT INTO lending (bookId) VALUES (" + bookId + ");";
+        jdbcTemplate.update(sql);
+
+    }
+
+    //書籍を貸出中デーブルから消去
+    public void returnSystem(int bookId) {
+        String sql = "DELETE FROM lending where bookId =" + bookId + ";";
+        jdbcTemplate.update(sql);
+
+    }
+
 }
