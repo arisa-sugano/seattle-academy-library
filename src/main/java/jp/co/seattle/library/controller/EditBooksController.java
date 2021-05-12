@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import jp.co.seattle.library.dto.BookDetailsInfo;
 import jp.co.seattle.library.service.BooksService;
+import jp.co.seattle.library.service.LendingService;
 import jp.co.seattle.library.service.ThumbnailService;
 
 /**
@@ -33,6 +34,9 @@ public class EditBooksController {
 
     @Autowired
     private ThumbnailService thumbnailService;
+
+    @Autowired
+    private LendingService lendingService;
 
     //deatils.jsbの編集ボタンを押すとここに飛ぶ
     //POST：更新 GET:情報の取得
@@ -82,7 +86,7 @@ public class EditBooksController {
         bookInfo.setISBN(ISBN);
         bookInfo.setBookId(bookId);
 
-        boolean isIsbnForCheck = ISBN.matches("(^\\d{10,13}$)?");
+        boolean isIsbnForCheck = ISBN.matches("(^\\d{10}|\\d{13}$)?");
 
         boolean check = false;
 
@@ -140,6 +144,16 @@ public class EditBooksController {
 
         BookDetailsInfo newIdInfo = booksService.getBookInfo(bookId);
         model.addAttribute("bookDetailsInfo", newIdInfo);
+
+        //貸出ステータス引き継ぎ
+        if (lendingService.lendCheck(bookId) != 0) {
+            model.addAttribute("lending", "貸出中");
+        }
+
+        if (lendingService.lendCheck(bookId) == 0) {
+            model.addAttribute("lending", "貸出可");
+        }
+
         return "details";
 
     }
