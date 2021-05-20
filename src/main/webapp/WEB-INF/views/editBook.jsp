@@ -35,9 +35,8 @@
         <div class="right">
                   
             <ul>
-                        
-                <li><a href="<%=request.getContextPath()%>/home" class="menu">Home</a></li>         
-                <li><a href="<%=request.getContextPath()%>/">ログアウト</a></li>       
+                <li><a href="<%=request.getContextPath()%>/home" class="menu">Home</a></li>
+                <li><a href="<%=request.getContextPath()%>/">ログアウト</a></li>
             </ul>
                 
         </div>
@@ -129,7 +128,6 @@
                 <button type="submit" id="update-btn" class="btn_addBook">更新</button>
             </div>
         </form>
-        </div>
     </main>
 </body>
 </html>

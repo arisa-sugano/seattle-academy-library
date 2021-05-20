@@ -133,5 +133,12 @@ public class BooksService {
         jdbcTemplate.update(sql);
     }
 
-
+    //部分一致（value=2)
+    public List<BookInfo> getSearchList(String search) {
+        List<BookInfo> getedBookList = jdbcTemplate.query(
+                "SELECT id,title,author,publisher,publish_date,thumbnail_url from books where title or author like '%"
+                        + search + "%' ORDER BY title asc",
+                new BookInfoRowMapper());
+        return getedBookList;
+    }
 }

@@ -26,14 +26,26 @@
     </header>
     <main>
         <h1>Home</h1>
+        
         <a href="<%=request.getContextPath()%>/addBook" class="btn_add_book">書籍の追加</a>
         <a href="<%=request.getContextPath()%>/bulkRegist" class="btn_bulk_book">一括登録</a>
+         <div>
+        <br>        
+        <form id = "searchBooks" action="searchBooks" method="POST">
+        <p> 書籍検索</p>
+        <br>
+         <input id= "search" type="search" name="search" value="${search}" placeholder="タイトルを入力">
+          <input type="submit" name="submit"class="fas fa-search" value="検索">
+        </form>
+        </div>
+        <br>
+            <div>
         <div class="content_body">
             <c:if test="${!empty resultMessage}">
                 <div class="error_msg">${resultMessage}</div>
             </c:if>
-            
-            <div>
+     
+
                 <div class="booklist">
                     <c:forEach var="bookInfo" items="${bookList}">
                         <div class="books">
@@ -46,12 +58,14 @@
                                     </c:if>
                                 </a> <input type="hidden" name="bookId" value="${bookInfo.bookId}">
                             </form>
-                            <ul>
+                            <div class=.br>
+                            <ul>                        
                                 <li class="book_title">${bookInfo.title}</li>
                                 <li class="book_author">${bookInfo.author}(著)</li>
                                 <li class="book_publisher">出版社：${bookInfo.publisher}</li>
                                 <li class="book_publisher">出版日：${bookInfo.publishDate}</li>
                             </ul>
+                            </div>
                         </div>
                     </c:forEach>
                 </div>
