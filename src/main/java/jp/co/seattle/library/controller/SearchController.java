@@ -27,6 +27,13 @@ public class SearchController {
 
 
 
+    /**
+     * 書籍検索機能
+     * @param locale　ローカル情報
+     * @param search　検索ワード
+     * @param model　 モデル情報
+     * @return        遷移先画面
+     */
     @RequestMapping(value = "/searchBooks", method = RequestMethod.POST)
     public String searchingBooks(Locale locale,
             @RequestParam("search") String search,

@@ -22,6 +22,14 @@ import jp.co.seattle.library.rowMapper.BookInfoRowMapper;
  * @author user
  *
  */
+/**
+ * @author user
+ *
+ */
+/**
+ * @author user
+ *
+ */
 @Service
 public class BooksService {
     final static Logger logger = LoggerFactory.getLogger(BooksService.class);
@@ -133,7 +141,7 @@ public class BooksService {
         jdbcTemplate.update(sql);
     }
 
-    //部分一致（value=2)
+    //書籍検索機能
     public List<BookInfo> getSearchList(String search) {
         List<BookInfo> getedBookList = jdbcTemplate.query(
                 "SELECT id,title,author,publisher,publish_date,thumbnail_url from books where title or author like '%"
