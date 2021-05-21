@@ -64,6 +64,7 @@
                                 <li class="book_publisher">出版社：${bookInfo.publisher}</li>
                                 <li class="book_publisher">出版日：${bookInfo.publishDate}</li>
                             </ul>
+                         
                         </div>
                     </c:forEach>
                 </div>
