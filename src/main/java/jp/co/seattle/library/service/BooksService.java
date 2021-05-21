@@ -13,20 +13,9 @@ import jp.co.seattle.library.dto.BookInfo;
 import jp.co.seattle.library.rowMapper.BookDetailsInfoRowMapper;
 import jp.co.seattle.library.rowMapper.BookInfoRowMapper;
 
+
 /**
- * 書籍サービス
- * 
- *  booksテーブルに関する処理を実装する
- */
-/**
- * @author user
- *
- */
-/**
- * @author user
- *
- */
-/**
+ *  * 書籍サービス
  * @author user
  *
  */
