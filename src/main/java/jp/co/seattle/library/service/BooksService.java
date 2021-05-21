@@ -13,12 +13,9 @@ import jp.co.seattle.library.dto.BookInfo;
 import jp.co.seattle.library.rowMapper.BookDetailsInfoRowMapper;
 import jp.co.seattle.library.rowMapper.BookInfoRowMapper;
 
+
 /**
- * 書籍サービス
- * 
- *  booksテーブルに関する処理を実装する
- */
-/**
+ *  * 書籍サービス
  * @author user
  *
  */
@@ -133,5 +130,12 @@ public class BooksService {
         jdbcTemplate.update(sql);
     }
 
-
+    //書籍検索機能
+    public List<BookInfo> getSearchList(String search) {
+        List<BookInfo> getedBookList = jdbcTemplate.query(
+                "SELECT id,title,author,publisher,publish_date,thumbnail_url from books where title or author like '%"
+                        + search + "%' ORDER BY title asc",
+                new BookInfoRowMapper());
+        return getedBookList;
+    }
 }
