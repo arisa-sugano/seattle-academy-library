@@ -25,7 +25,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import jp.co.seattle.library.dto.BookDetailsInfo;
 import jp.co.seattle.library.service.BooksService;
-import jp.co.seattle.library.service.ThumbnailService;
 
 /**
  * Handles requests for the application home page.
@@ -38,9 +37,6 @@ public class BulkRegistController {
 
     @Autowired
     private BooksService booksService;
-
-    @Autowired
-    private ThumbnailService thumbnailService;
 
     /**
      * jspからメソッドを取得
