@@ -25,7 +25,9 @@ if($('#email').val() == "") {
   errorfield('#email-form');
   stopsubmit=true;
 }
-  if(stopsubmit) return false;
+  if(stopsubmit) 
+
+ return false;
 });
     
 });

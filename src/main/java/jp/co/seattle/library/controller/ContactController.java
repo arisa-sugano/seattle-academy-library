@@ -57,9 +57,7 @@ public class ContactController {
 		ContactInfo.setContent(content);
 
 		booksService.ContactSystem(ContactInfo);
-		model.addAttribute("resultMessage", "送信完了！お問い合わせありがとうございます。他にも何かありますか？");
-		
-		
+		model.addAttribute("okMessage", "🐶🐶🐶🐶🐶Thank you for your message! Anything elese?🐶🐶🐶🐶🐶");
 		return"contact";
 		
 }

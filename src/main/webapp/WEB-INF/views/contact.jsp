@@ -18,8 +18,8 @@
 
 <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
 	rel="stylesheet">
-<link href="<c:url value="/resources/css/contact.css" />"
-	rel="stylesheet" type="text/css">
+<link href="<c:url value="/resources/css/contact.css" />"rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Corben:700 rel="stylesheet">
 
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </head>
@@ -60,10 +60,14 @@
 
 				<div class="formgroup" id="message-form">
 					<label for="message">Your message</label>
+					<br>
 					<textarea id="message" required name="content"></textarea>
 				</div>
-
 				<input type="submit" value="Send your message!" />
+				<br>
+				<c:if test="${!empty okMessage}">
+                        <div class="error_msg">${okMessage}</div>
+                </c:if>
 			</form>
 	</div>
 	</main>
