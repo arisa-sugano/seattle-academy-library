@@ -19,7 +19,7 @@
 <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
 	rel="stylesheet">
 <link href="<c:url value="/resources/css/contact.css" />"rel="stylesheet" type="text/css">
-<link href="https://fonts.googleapis.com/css?family=Corben:700 rel="stylesheet">
+
 
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </head>
